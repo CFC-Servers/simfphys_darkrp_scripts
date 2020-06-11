@@ -1,6 +1,7 @@
 local swep = weapons.GetStored("weapon_simrepair")
-simrepair_primary = simrepair_primary or swep.PrimaryAttack
-local primaryAttack = simrepair_primary
+
+simrepaircost_PrimaryAttack = simrepaircost_PrimaryAttack or swep.PrimaryAttack
+local primaryAttack = simrepaircost_PrimaryAttack
 local repairCost = 100
 
 
@@ -9,8 +10,8 @@ swep.PrimaryAttack = function(self, ...)
 	local money = owner:getDarkRPVar("money")
 	if money < repairCost then return end
 	
-	local Trace = owner:GetEyeTrace()
-	local ent = Trace.Entity
+	local trace = owner:GetEyeTrace()
+	local ent = trace.Entity
 	
 	local class = ent:GetClass()
 	
@@ -36,6 +37,5 @@ swep.PrimaryAttack = function(self, ...)
 	else
 		primaryAttack(self, ...)
 	end
-	
 end
 
