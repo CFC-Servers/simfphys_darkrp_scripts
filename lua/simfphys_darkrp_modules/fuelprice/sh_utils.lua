@@ -14,6 +14,12 @@ FuelPrices.pumpFuelTypes = {
     gmod_sent_vehicle_fphysics_gaspump = "gas"
 }
 
+function FuelPrices:Log( ... )
+    local prefix = "[FuelPrice] "
+
+    print( prefix, ... )
+end
+
 function FuelPrices:IsPump( ent )
     return IsValid( ent ) and self.pumpTypes[ent:GetClass()]
 end
