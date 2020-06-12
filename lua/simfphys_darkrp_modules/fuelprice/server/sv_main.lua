@@ -77,7 +77,7 @@ function FuelPrices:ProgressDayIndex()
 end
 
 function FuelPrices:LoadHistoricData()
-    self.historicData = include( "modules/fuelprice/data/fuel_prices.lua" )
+    self.historicData = include( "simfphys_darkrp_modules/fuelprice/data/fuel_prices.lua" )
 end
 
 function FuelPrices:ProgressDay()
