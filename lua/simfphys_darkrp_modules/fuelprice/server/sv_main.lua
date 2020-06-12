@@ -174,6 +174,9 @@ function FuelPrices:InitTimer( restart )
     end )
 end
 
+function FuelPrices:ChargeCustomer( pump )
+end
+
 function FuelPrices:Init()
     self:FileInit()
     self:LoadHistoricData()
