@@ -82,18 +82,23 @@ function FuelPrices:AddPumpExtensions( pump )
         function pump:ChargeCustomer()
             local finalPrice = pump:CalculateFuelPrice()
             local formattedPrice = DarkRP.formatMoney( finalPrice )
-            local customer = pump:GetUser()
 
-            customer:addMoney( -finalPrice )
+            local customer = pump:GetUser()
 
             local message = "You've been charged " .. formattedPrice .. " for fuel"
             DarkRP.notify( customer, 1, 5, message)
+
+            customer:addMoney( -finalPrice )
         end
 
-        local oldDisable = pump.Disable
-        function pump:Disable()
-            pump:ChargeCustomer()
-            oldDisable( pump )
+        if not pump.wrappedDisableFunction then
+            local oldDisable = pump.Disable
+            function pump:Disable()
+                pump:ChargeCustomer()
+                oldDisable( pump )
+            end
+
+            pump.wrappedDisableFunction = true
         end
     end
 end
@@ -104,4 +109,18 @@ function FuelPrices:InitPumps()
             self:AddPumpExtensions( thing )
         end
     end
+end
+
+function FuelPrices:InitWatcher()
+    hook.Add( "OnEntityCreated", "InitSimfPhysFuelPrices", function( ent )
+        if not FuelPrices:IsPump( ent ) then return end
+
+        FuelPrices:AddPumpExtensions( thing )
+
+        if SERVER then
+            FuelPrices:UpdatePump( thing )
+        else
+            FuelPrices:InitPumpUI( thing )
+        end
+    end )
 end
