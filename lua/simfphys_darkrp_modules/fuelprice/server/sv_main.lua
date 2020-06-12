@@ -128,7 +128,7 @@ function FuelPrices:UpdatePump( pump )
     local prices = self:GetFuelPrices()
     local fuelType = pump:GetFuelType()
 
-    local fuelPricePerUnit = fuelType == "electric" and self.Config.electricityCost or prices[fuelType]
+    local fuelPricePerUnit = prices[fuelType]
 
     pump:SetNWFloat( "FuelPricePerUnit", fuelPricePerUnit )
 
@@ -184,6 +184,7 @@ function FuelPrices:Init()
     self:InitTimer()
     self:InitPumps()
     self:UpdatePumps()
+    self:InitWatcher()
 
     self:HandleShouldProgressDay()
 end
