@@ -21,6 +21,7 @@ hook.Add( "InitPostEntity", "LoadSimfPhysFuelPrices", function()
         FuelPrices:Init()
     else
         FuelPrices:InitPumps()
+        FuelPrices:InitPumpUIs()
     end
 
     FuelPrices:InitWatcher()
