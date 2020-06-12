@@ -114,7 +114,7 @@ function FuelPrices:InitPumpUI( pump )
     pump.fuelCostInitialized = true
 end
 
-function FuelCost:InitPumpUIs()
+function FuelPrices:InitPumpUIs()
     for _, thing in pairs( ents.GetAll() ) do
         if self:IsPump( thing ) then
             self:InitPumpUI( thing )
@@ -123,5 +123,5 @@ function FuelCost:InitPumpUIs()
 end
 
 hook.Add( "InitPostEntity", "SimfPhysInitFuelPrice", function()
-    FuelCost:InitPumpUIs()
+    FuelPrices:InitPumpUIs()
 end )
