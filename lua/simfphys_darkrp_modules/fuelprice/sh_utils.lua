@@ -33,12 +33,28 @@ function FuelPrices:AddPumpExtensions( pump )
         return pump:GetNWFloat( "FuelPricePerUnit", 0 )
     end
 
-    function pump:CalculateFuelPrice()
-        -- Calculates the total price of the used fuel
-        -- Ends up getting called on Draw
+    function pump:GetUnitsUsed()
+        -- Gets the units of fuel used
+        -- Gallons for liquids, kw/h for electricity
 
         -- Fuel Used is in liters by default
         local usedFuel = pump:GetFuelUsed()
+
+        local units = 0
+        if pump:GetFuelType() == "electric" then
+            -- Idk, this is how SimfPhys calculates kW/h
+            units = usedFuel / 2
+        else
+            -- To gallons
+            units = usedFuel * 0.264172
+        end
+
+        return units
+    end
+
+    function pump:CalculateFuelPrice()
+        -- Calculates the total price of the used fuel
+        -- Ends up getting called on Draw
 
         local priceStruct = {
             price = 0
@@ -52,14 +68,7 @@ function FuelPrices:AddPumpExtensions( pump )
             self.price = self.price * mult
         end
 
-        local units = 0
-        if pump:GetFuelType() == "electric" then
-            -- Idk, this is how SimfPhys calculates kW/h
-            units = usedFuel / 2
-        else
-            -- To gallons
-            units = usedFuel * 0.264172
-        end
+        local unitsUsed = pump:GetUnitsUsed()
 
         local fuelPrice = units * self:GetFuelPricePerUnit()
         priceStruct:SetPrice( fuelPrice )
@@ -67,6 +76,25 @@ function FuelPrices:AddPumpExtensions( pump )
         hook.Run( "SimfPhysCalculateFuelPrice", pump, priceStruct )
 
         return priceStruct.price
+    end
+
+    if SERVER then
+        function pump:ChargeCustomer()
+            local finalPrice = pump:CalculateFuelPrice()
+            local formattedPrice = DarkRP.formatMoney( finalPrice )
+            local customer = pump:GetUser()
+
+            customer:addMoney( -finalPrice )
+
+            local message = "You've been charged " .. formattedPrice .. " for fuel"
+            DarkRP.notify( customer, 1, 5, message)
+        end
+
+        local oldDisable = pump.Disable
+        function pump:Disable()
+            pump:ChargeCustomer()
+            oldDisable( pump )
+        end
     end
 end
 
