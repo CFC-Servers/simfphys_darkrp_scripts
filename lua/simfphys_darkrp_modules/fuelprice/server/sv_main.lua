@@ -126,7 +126,9 @@ function FuelPrices:UpdatePump( pump )
     local prices = self:GetFuelPrices()
     local fuelType = pump:GetFuelType()
 
-    pump:SetNWFloat( "FuelPricePerUnit", prices[fuelType] )
+    local fuelPricePerUnit = fuelType == "electric" and self.Config.electricityCost or prices[fuelType]
+
+    pump:SetNWFloat( "FuelPricePerUnit", fuelPricePerUnit )
 
     hook.Run( "OnUpdateFuelPumpPrices", pump )
 end
