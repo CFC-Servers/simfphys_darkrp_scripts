@@ -121,8 +121,3 @@ function FuelPrices:InitPumpUIs()
         end
     end
 end
-
-hook.Add( "InitPostEntity", "SimfPhysInitFuelPrice", function()
-    FuelPrices:InitPumps()
-    FuelPrices:InitPumpUIs()
-end )
