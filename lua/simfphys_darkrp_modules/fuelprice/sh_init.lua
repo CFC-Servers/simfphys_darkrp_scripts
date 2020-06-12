@@ -14,3 +14,14 @@ else
 end
 
 include( "modules/sh_init.lua" )
+
+-- Setup hooks
+hook.Add( "InitPostEntity", "LoadSimfPhysFuelPrices", function()
+    if SERVER then
+        FuelPrices:Init()
+    else
+        FuelPrices:InitPumps()
+    end
+
+    FuelPrices:InitWatcher()
+end )
