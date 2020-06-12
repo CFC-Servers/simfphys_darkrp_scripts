@@ -23,7 +23,7 @@ function FuelPrices:GetDigits( value )
     return digits
 end
 
-function FuelPrices:InitPump( pump )
+function FuelPrices:InitPumpUI( pump )
     -- Modifies the text on the screen of the fuel pump
 
     if pump.fuelCostInitialized then return end
@@ -114,14 +114,14 @@ function FuelPrices:InitPump( pump )
     pump.fuelCostInitialized = true
 end
 
-function FuelCost:InitPumps()
+function FuelCost:InitPumpUIs()
     for _, thing in pairs( ents.GetAll() ) do
         if self:IsPump( thing ) then
-            self:InitPump( thing )
+            self:InitPumpUI( thing )
         end
     end
 end
 
 hook.Add( "InitPostEntity", "SimfPhysInitFuelPrice", function()
-    FuelCost:InitPumps()
+    FuelCost:InitPumpUIs()
 end )
