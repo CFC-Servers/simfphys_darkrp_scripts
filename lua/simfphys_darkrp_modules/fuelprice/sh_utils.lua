@@ -115,12 +115,12 @@ function FuelPrices:InitWatcher()
     hook.Add( "OnEntityCreated", "InitSimfPhysFuelPrices", function( ent )
         if not FuelPrices:IsPump( ent ) then return end
 
-        FuelPrices:AddPumpExtensions( thing )
+        FuelPrices:AddPumpExtensions( ent )
 
         if SERVER then
-            FuelPrices:UpdatePump( thing )
+            FuelPrices:UpdatePump( ent )
         else
-            FuelPrices:InitPumpUI( thing )
+            FuelPrices:InitPumpUI( ent )
         end
     end )
 end
