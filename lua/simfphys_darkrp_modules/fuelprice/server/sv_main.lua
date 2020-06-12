@@ -4,12 +4,6 @@ FuelPrices.SaveDir = "fuel_prices"
 FuelPrices.SaveFileName = "progress_data.json"
 FuelPrices.SaveFile = FuelPrices.SaveDir .. "/" .. FuelPrices.SaveFileName
 
-function FuelPrices:Log( ... )
-    local prefix = "[FuelPrice] "
-
-    print( prefix, ... )
-end
-
 function FuelPrices:FileInit()
     -- Initializes the file structure (if needed)
 
