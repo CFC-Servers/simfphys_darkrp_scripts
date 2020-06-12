@@ -174,9 +174,6 @@ function FuelPrices:InitTimer( restart )
     end )
 end
 
-function FuelPrices:ChargeCustomer( pump )
-end
-
 function FuelPrices:Init()
     self:FileInit()
     self:LoadHistoricData()
@@ -184,11 +181,6 @@ function FuelPrices:Init()
     self:InitTimer()
     self:InitPumps()
     self:UpdatePumps()
-    self:InitWatcher()
 
     self:HandleShouldProgressDay()
 end
-
-hook.Add( "InitPostEntity", "LoadSimfPhysFuelPrices", function()
-    FuelPrices:Init()
-end )
