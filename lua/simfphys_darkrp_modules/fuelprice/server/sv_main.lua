@@ -100,7 +100,7 @@ function FuelPrices:LoadSaveData()
 
     local updateThreshold = os.time() - ( self.Config.hoursPerMonth * 60 )
     if self.lastProgressed <= updateThreshold then
-        self:ProgressDayIndex()
+        self:ProgressDay()
     end
 end
 
@@ -159,7 +159,9 @@ function FuelPrices:InitTimer( restart )
     -- restart parameter will force the timer to restart
 
     local this = self
-    local delay = self.Config.hoursPerMonth * 60
+    local delay = self.Config.hoursPerMonth * 60 * 60
+
+    self:Log( "Starting timer with a delay of: " .. delay .. " seconds" )
 
     local timerName = "SimfPhysFuelPriceUpdater"
 

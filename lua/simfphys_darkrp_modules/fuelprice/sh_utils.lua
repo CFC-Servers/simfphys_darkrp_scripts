@@ -38,7 +38,7 @@ function FuelPrices:AddPumpExtensions( pump )
         -- Ends up getting called on Draw
 
         -- Fuel Used is in liters by default
-        local usedFuel = self:GetFuelUsed()
+        local usedFuel = pump:GetFuelUsed()
 
         local priceStruct = {
             price = 0
@@ -53,7 +53,7 @@ function FuelPrices:AddPumpExtensions( pump )
         end
 
         local units = 0
-        if self:GetFuelType() == "electric" then
+        if pump:GetFuelType() == "electric" then
             -- Idk, this is how SimfPhys calculates kW/h
             units = usedFuel / 2
         else
