@@ -123,5 +123,10 @@ function FuelPrices:InitPumpUIs()
 end
 
 hook.Add( "InitPostEntity", "SimfPhysInitFuelPrice", function()
-    FuelPrices:InitPumpUIs()
+    -- Slight delay so that map changes don't cause clients to run this slightly before the server ran its
+    -- Maybe?
+    timer.Simple( 5, function()
+        FuelPrices:InitPumpUIs()
+    end )
 end )
+
