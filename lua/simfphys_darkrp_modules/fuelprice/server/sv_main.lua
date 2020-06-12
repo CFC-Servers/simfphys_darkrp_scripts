@@ -107,7 +107,7 @@ end
 function FuelPrices:GetFuelDate()
     local historicData = self.historicData[self.dayIndex]
 
-    return historicData[self.dayIndex].day
+    return historicData.day
 end
 
 function FuelPrices:GetFuelPrices()
