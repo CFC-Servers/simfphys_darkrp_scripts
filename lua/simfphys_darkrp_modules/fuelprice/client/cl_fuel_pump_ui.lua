@@ -67,7 +67,7 @@ function FuelPrices:InitPumpUI( pump )
 
             local startingX = -88
             local boxSpacing = 20
-            for i=1, 6 do
+            for i=1, 5 do
                 local boxX = startingX + ( boxSpacing * ( i - 1 ) )
                 draw.RoundedBox( 5, boxX, boxY, 19, 24, Color( 0, 0, 0, 255 ) )
             end
@@ -91,7 +91,7 @@ function FuelPrices:InitPumpUI( pump )
             }
 
             local digitStartingX = 6
-            for i=1, 6 do
+            for i=1, 5 do
                 local digit = digitOrder[i]
                 local digitX = digitStartingX - ( boxSpacing * ( i - 1 ) )
 
