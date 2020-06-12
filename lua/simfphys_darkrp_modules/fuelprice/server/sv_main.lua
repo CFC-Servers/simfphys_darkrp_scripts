@@ -86,6 +86,13 @@ function FuelPrices:ProgressDay()
     self:AlertPrices()
 end
 
+function FuelPrices:HandleShouldProgressDay()
+    local updateThreshold = os.time() - ( self.Config.hoursPerMonth * 60 )
+    if self.lastProgressed <= updateThreshold then
+        self:ProgressDay()
+    end
+end
+
 function FuelPrices:LoadSaveData()
     -- Loads all fuel data from save file
 
@@ -97,11 +104,6 @@ function FuelPrices:LoadSaveData()
     self.dayIndex = data.dayIndex
 
     hook.Run( "OnLoadSimfPhysFuelPrice", data )
-
-    local updateThreshold = os.time() - ( self.Config.hoursPerMonth * 60 )
-    if self.lastProgressed <= updateThreshold then
-        self:ProgressDay()
-    end
 end
 
 function FuelPrices:GetFuelDate()
@@ -179,6 +181,8 @@ function FuelPrices:Init()
     self:InitTimer()
     self:InitPumps()
     self:UpdatePumps()
+
+    self:HandleShouldProgressDay()
 end
 
 hook.Add( "InitPostEntity", "LoadSimfPhysFuelPrices", function()
