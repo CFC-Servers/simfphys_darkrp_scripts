@@ -173,6 +173,7 @@ function FuelPrices:Init()
     self:LoadHistoricData()
     self:LoadSaveData()
     self:InitTimer()
+    self:InitPumps()
     self:UpdatePumps()
 end
 
