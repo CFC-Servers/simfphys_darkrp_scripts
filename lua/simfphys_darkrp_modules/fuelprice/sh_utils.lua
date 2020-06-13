@@ -81,21 +81,49 @@ function FuelPrices:AddPumpExtensions( pump )
     if SERVER then
         function pump:ChargeCustomer()
             local finalPrice = pump:CalculateFuelPrice()
-            local formattedPrice = DarkRP.formatMoney( finalPrice )
 
+            if finalPrice == 0 then return end
+
+            local formattedPrice = DarkRP.formatMoney( math.Round( finalPrice, 2 ) )
             local customer = pump:GetUser()
 
             local message = "You've been charged " .. formattedPrice .. " for fuel"
-            DarkRP.notify( customer, 1, 5, message)
+            DarkRP.notify( customer, 0, 5, message)
 
             customer:addMoney( -finalPrice )
         end
 
+        -- Use Function was the only one I could use that would detect when the player actually put the nozzle away
+        if not pump.wrappedUseFunction then
+            local oldUse = pump.Use
+
+            function pump:OldUse( ... )
+                oldUse( ... )
+            end
+
+            function pump:Use( ply )
+                if not pump:GetActive() then return end
+                if ply ~= pump:GetUser() then return end
+                -- After the conditions above, we can be sure that the user has just put away the nozzle
+
+                pump:ChargeCustomer()
+                pump:OldUse( ply )
+            end
+
+            pump.wrappedUseFunction = true
+        end
+
+        -- Wrap the Disable function in case players don't put the nozzle down normally
         if not pump.wrappedDisableFunction then
             local oldDisable = pump.Disable
+
+            function pump:OldDisable( ... )
+                oldDisable( ... )
+            end
+
             function pump:Disable()
                 pump:ChargeCustomer()
-                oldDisable( pump )
+                pump:OldDisable()
             end
 
             pump.wrappedDisableFunction = true
