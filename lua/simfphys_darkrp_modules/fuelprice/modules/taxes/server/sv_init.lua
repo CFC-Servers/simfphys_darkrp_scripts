@@ -23,6 +23,6 @@ hook.Add( "SimfPhysCalculateFuelPrice", "ModifyPriceWithTaxes", function( pump, 
     local tax = pump:GetNWFloat( "FuelTax", 0 )
     local newPrice = priceStruct.price + ( priceStruct.price * tax )
 
-    FuelPrices:Log( "Modified price: [" .. priceStruct.price .. "] with tax rate [" .. newPrice .. "], resulted in [" .. newPrice .. "]" )
+    FuelPrices:Log( "Modified price: [" .. priceStruct.price .. "] with tax rate [" .. tax .. "%], resulted in [" .. newPrice .. "]" )
     priceStruct:SetPrice( newPrice )
 end )
