@@ -98,11 +98,12 @@ function FuelPrices:AddPumpExtensions( pump )
             local oldUse = pump.Use
 
             function pump:Use( ply )
-                if not pump:GetActive() then return end
-                if ply ~= pump:GetUser() then return end
-                -- After the conditions above, we can be sure that the user has just put away the nozzle
+                -- After these conditions, we can be sure that the user has just put away the nozzle
+                -- (They are holding the nozzle and hit E on the pump again)
+                if pump:GetActive() and ply == pump:getUser() then
+                    pump:ChargeCustomer()
+                end
 
-                pump:ChargeCustomer()
                 oldUse( pump, ply )
             end
 
