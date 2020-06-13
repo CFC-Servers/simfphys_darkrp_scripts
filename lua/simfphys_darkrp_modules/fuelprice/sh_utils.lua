@@ -128,7 +128,7 @@ function FuelPrices:AddPumpExtensions( pump )
 
             function pump:Think()
                 local user = pump:GetUser()
-                if not IsValid( user ) then return pump:OldThink() end
+                if not IsValid( user ) then return oldThink( pump ) end
 
                 local userMoney = user:getDarkRPVar( "money" )
                 local currentCost = pump:CalculateFuelPrice()
