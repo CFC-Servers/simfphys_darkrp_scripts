@@ -70,7 +70,7 @@ function FuelPrices:AddPumpExtensions( pump )
 
         local unitsUsed = pump:GetUnitsUsed()
 
-        local fuelPrice = units * self:GetFuelPricePerUnit()
+        local fuelPrice = unitsUsed * self:GetFuelPricePerUnit()
         priceStruct:SetPrice( fuelPrice )
 
         hook.Run( "SimfPhysCalculateFuelPrice", pump, priceStruct )
