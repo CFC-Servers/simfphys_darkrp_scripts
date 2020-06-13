@@ -85,7 +85,7 @@ function FuelPrices:AddPumpExtensions( pump )
             if finalPrice == 0 then return end
 
             local formattedPrice = DarkRP.formatMoney( math.Round( finalPrice, 2 ) )
-            local customer = pump:GetUser()
+            local customer = pump.lastUser
 
             local message = "You've been charged " .. formattedPrice .. " for fuel"
             DarkRP.notify( customer, 0, 5, message)
@@ -93,33 +93,24 @@ function FuelPrices:AddPumpExtensions( pump )
             customer:addMoney( -finalPrice )
         end
 
-        -- Use Function was the only one I could use that would detect when the player actually put the nozzle away
-        if not pump.wrappedUseFunction then
-            local oldUse = pump.Use
+        if not pump.hookedActiveChange then
 
-            function pump:Use( ply )
-                -- After these conditions, we can be sure that the user has just put away the nozzle
-                -- (They are holding the nozzle and hit E on the pump again)
-                if pump:GetActive() and ply == pump:getUser() then
-                    pump:ChargeCustomer()
+            -- Handle people picking up and putting down the nozzle
+            self:NetworkVarNotify( "Active", function( ent, name, old, new )
+                if old == new then return end
+
+                if new == true then
+                    timer.Simple( 0, function()
+                        ent.lastUser = ent:GetUser()
+                    end )
                 end
 
-                oldUse( pump, ply )
-            end
+                if new == false then
+                    ent:ChargeCustomer()
+                end
+            end )
 
-            pump.wrappedUseFunction = true
-        end
-
-        -- Wrap the Disable function in case players don't put the nozzle down normally
-        if not pump.wrappedDisableFunction then
-            local oldDisable = pump.Disable
-
-            function pump:Disable()
-                pump:ChargeCustomer()
-                oldDisable( pump )
-            end
-
-            pump.wrappedDisableFunction = true
+            pump.hookedActiveChange = true
         end
 
         -- Wrap the Think function so we can kill the Pump if the cost has exceeded their money
