@@ -128,6 +128,35 @@ function FuelPrices:AddPumpExtensions( pump )
 
             pump.wrappedDisableFunction = true
         end
+
+        -- Wrap the Think function so we can kill the Pump if the cost has exceeded their money
+        if not pump.wrappedThinkFunction then
+            local oldThink = pump.Think
+
+            function pump:OldThink( ... )
+                oldThink( ... )
+            end
+
+            function pump:Think()
+                local user = pump:GetUser()
+                if not IsValid( user ) then return pump:OldThink() end
+
+                local userMoney = user:getDarkRPVar( "money" )
+                local currentCost = pump:CalculateFuelPrice()
+
+                if currentCost >= userMoney then
+				    local message = "You can't afford any more fuel!"
+				    DarkRP.notify( ply, 1, 8, message )
+
+                    ply.gas_InUse = false
+					pump:Disable()
+                end
+
+                pump:OldThink()
+            end
+
+            pump.wrappedThinkFunction = true
+        end
     end
 end
 
