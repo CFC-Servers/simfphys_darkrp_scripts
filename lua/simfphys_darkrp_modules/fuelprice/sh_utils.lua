@@ -103,7 +103,6 @@ function FuelPrices:AddPumpExtensions( pump )
                 -- After the conditions above, we can be sure that the user has just put away the nozzle
 
                 pump:ChargeCustomer()
-                pump:OldUse( ply )
                 oldUse( pump )
             end
 
