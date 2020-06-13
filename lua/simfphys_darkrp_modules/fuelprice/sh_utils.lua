@@ -96,7 +96,7 @@ function FuelPrices:AddPumpExtensions( pump )
         if not pump.hookedActiveChange then
 
             -- Handle people picking up and putting down the nozzle
-            self:NetworkVarNotify( "Active", function( ent, name, old, new )
+            pump:NetworkVarNotify( "Active", function( ent, name, old, new )
                 if old == new then return end
 
                 if new == true then
