@@ -97,10 +97,6 @@ function FuelPrices:AddPumpExtensions( pump )
         if not pump.wrappedUseFunction then
             local oldUse = pump.Use
 
-            function pump:OldUse( ... )
-                oldUse( ... )
-            end
-
             function pump:Use( ply )
                 if not pump:GetActive() then return end
                 if ply ~= pump:GetUser() then return end
@@ -108,6 +104,7 @@ function FuelPrices:AddPumpExtensions( pump )
 
                 pump:ChargeCustomer()
                 pump:OldUse( ply )
+                oldUse( pump )
             end
 
             pump.wrappedUseFunction = true
@@ -117,13 +114,9 @@ function FuelPrices:AddPumpExtensions( pump )
         if not pump.wrappedDisableFunction then
             local oldDisable = pump.Disable
 
-            function pump:OldDisable( ... )
-                oldDisable( ... )
-            end
-
             function pump:Disable()
                 pump:ChargeCustomer()
-                pump:OldDisable()
+                oldDisable( pump )
             end
 
             pump.wrappedDisableFunction = true
@@ -132,10 +125,6 @@ function FuelPrices:AddPumpExtensions( pump )
         -- Wrap the Think function so we can kill the Pump if the cost has exceeded their money
         if not pump.wrappedThinkFunction then
             local oldThink = pump.Think
-
-            function pump:OldThink( ... )
-                oldThink( ... )
-            end
 
             function pump:Think()
                 local user = pump:GetUser()
@@ -152,7 +141,7 @@ function FuelPrices:AddPumpExtensions( pump )
 					pump:Disable()
                 end
 
-                pump:OldThink()
+                oldThink( pump )
             end
 
             pump.wrappedThinkFunction = true
