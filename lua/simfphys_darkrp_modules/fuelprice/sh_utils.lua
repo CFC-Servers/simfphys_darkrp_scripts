@@ -128,23 +128,35 @@ function FuelPrices:AddPumpExtensions( pump )
 
             function pump:Think()
                 local user = pump:GetUser()
-                if not IsValid( user ) then return oldThink( pump ) end
 
-                local userMoney = user:getDarkRPVar( "money" )
-                local currentCost = pump:CalculateFuelPrice()
+                if  IsValid( user ) then
+                    local userMoney = user:getDarkRPVar( "money" )
+                    local currentCost = pump:CalculateFuelPrice()
 
-                if currentCost >= userMoney then
-				    local message = "You can't afford any more fuel!"
-				    DarkRP.notify( ply, 1, 8, message )
+                    if currentCost >= userMoney then
+                        local message = "You can't afford any more fuel!"
+                        DarkRP.notify( ply, 1, 8, message )
 
-                    ply.gas_InUse = false
-					pump:Disable()
+                        ply.gas_InUse = false
+                        pump:Disable()
+                    end
                 end
 
-                oldThink( pump )
+                return oldThink( pump )
             end
 
             pump.wrappedThinkFunction = true
+        end
+
+        -- Pretty unrelated, but this allows us to modify how quickly the pump thinks
+        if not pump.wrappedNextThinkFunction then
+            local oldNextThink = pump.NextThink
+
+            function pump:NextThink( value )
+                oldNextThink( pump, value + FuelPrices.Config.fuelPumpNextThinkModifier )
+            end
+
+            pump.wrappedNextThinkFunction = true
         end
     end
 end
