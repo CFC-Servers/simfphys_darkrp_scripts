@@ -1,4 +1,3 @@
-local drowningCars = {}
 local WATER_MAJORITY = 2
 
 local config = SimfphysDarkRPScripts.Config
