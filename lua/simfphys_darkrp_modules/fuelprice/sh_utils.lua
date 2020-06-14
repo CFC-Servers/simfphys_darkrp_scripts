@@ -136,9 +136,9 @@ function FuelPrices:AddPumpExtensions( pump )
 
                     if currentCost >= userMoney then
                         local message = "You can't afford any more fuel!"
-                        DarkRP.notify( ply, 1, 8, message )
+                        DarkRP.notify( user, 1, 8, message )
 
-                        ply.gas_InUse = false
+                        user.gas_InUse = false
                         pump:Disable()
                     end
                 end
