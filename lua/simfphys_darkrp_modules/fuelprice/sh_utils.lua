@@ -14,6 +14,12 @@ FuelPrices.pumpFuelTypes = {
     gmod_sent_vehicle_fphysics_gaspump = "gas"
 }
 
+FuelPrices.pumpFuelUnits = {
+    gmod_sent_vehicle_fphysics_gaspump_diesel = "gallon",
+    gmod_sent_vehicle_fphysics_gaspump_electric = "kW/h",
+    gmod_sent_vehicle_fphysics_gaspump = "gallon"
+}
+
 function FuelPrices:Log( ... )
     local prefix = "[FuelPrice] "
 
@@ -31,6 +37,10 @@ function FuelPrices:AddPumpExtensions( pump )
 
     function pump:GetFuelPricePerUnit()
         return pump:GetNWFloat( "FuelPricePerUnit", 0 )
+    end
+
+    function pump:GetFuelUnits()
+        return FuelPrices.pumpFuelUnits[pump:GetClass()]
     end
 
     function pump:GetUnitsUsed()

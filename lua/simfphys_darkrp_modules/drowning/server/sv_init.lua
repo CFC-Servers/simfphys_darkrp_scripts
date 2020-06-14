@@ -13,7 +13,11 @@ timer.Create( "CFC_SimfPhys_Drowning", config.DrowningDelay, 0, function()
                 ent:ApplyDamage( tickDamage )
 
                 if tickDamage <= curHealth then
-                    owner:ChatPrint( config.DrownedVehicleMessage )
+                    local message = config.DrownedVehicleMessage
+
+                    if message and #message > 0 then
+                        owner:ChatPrint( config.DrownedVehicleMessage )
+                    end
                 end
             end
         end
