@@ -8,7 +8,7 @@ hook.Add( "OnEntityCreated", "SimfPhysAlertExplode", function( ent )
         function ent:OnDestroyed()
             oldOnDestroyed( self )
 
-            local owner = self.tcbOwner or self:GetOwner() or self:CPPIGetOwner()
+            local owner = self:GetNWEntity( "tcbOwner", nil ) or self:GetOwner() or self:CPPIGetOwner()
             if not IsValid( owner ) then return end
 
             local message = "Your SimfPhys vehicle was destroyed!"
