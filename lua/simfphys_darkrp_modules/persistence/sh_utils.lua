@@ -6,6 +6,8 @@ local function spawnPumps()
     end
 end
 
-local respawnPumpsCommand = ulx.command( ULX_CATEGORY_NAME, "ulx spawnpumps", spawnPumps, "!spawnpumps" )
-respawnPumpsCommand:defaultAccess( ULib.ACCESS_ADMIN )
-respawnPumpsCommand:help( "Respawns persisted SimfPhys pumps" )
+hook.Add( "Initialize", "InitializeSimfPhysPersistenceCommand", function()
+    local respawnPumpsCommand = ulx.command( ULX_CATEGORY_NAME, "ulx spawnpumps", spawnPumps, "!spawnpumps" )
+    respawnPumpsCommand:defaultAccess( ULib.ACCESS_ADMIN )
+    respawnPumpsCommand:help( "Respawns persisted SimfPhys pumps" )
+end )
