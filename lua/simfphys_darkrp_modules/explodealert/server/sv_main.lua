@@ -3,7 +3,7 @@ hook.Add( "OnEntityCreated", "SimfPhysAlertExplode", function( ent )
     timer.Simple( 2, function()
         if not simfphys.IsCar( ent ) then return end
 
-        local oldOnDestroyed = ent.OnDestroyed()
+        local oldOnDestroyed = ent.OnDestroyed
 
         function ent:OnDestroyed()
             oldOnDestroyed( self )
