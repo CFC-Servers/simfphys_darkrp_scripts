@@ -120,8 +120,6 @@ function FuelPrices:InitPumpUI( pump )
         surface.CreateFont("AIRBOAT_VENDOR_FONT", {font = "Circular Std Bold", size = 200})
         local offset = Vector( 0, 0, 80 )
 
-        ENT.RenderGroup = RENDERGROUP_TRANSLUCENT
-
         function pump:RenderTranslucent()
             local origin = pump:GetPos()
             if (LocalPlayer():GetPos():Distance(origin) >= 768) then return end
