@@ -1,5 +1,6 @@
 hook.Add( "OnEntityCreated", "CFC_OnSimfphysCreated", function( ent )
-    if ent:GetClass() ~= "gmod_sent_vehicle_fphysics_base" then return end
+    if not IsValid( ent ) then return end
+    if not simfphys.IsCar( ent ) then return end
 
     -- One frame timer to prevent editing the variable while it has not itself
     timer.Simple( 0, function()
