@@ -114,13 +114,13 @@ function FuelPrices:InitPumpUI( pump )
         pump.fuelCostInitialized = true
     end
 
-    if not pump.wrappedRenderTranslucent then
-        local oldRenderTranslucent = pump.RenderTranslucent
+    if not pump.wrappedDrawTranslucent then
+        local oldDrawTranslucent = pump.DrawTranslucent
 
         surface.CreateFont("AIRBOAT_VENDOR_FONT", {font = "Circular Std Bold", size = 200})
         local offset = Vector( 0, 0, 80 )
 
-        function pump:RenderTranslucent()
+        function pump:DrawTranslucent()
             local origin = pump:GetPos()
             if (LocalPlayer():GetPos():Distance(origin) >= 768) then return end
 
@@ -147,9 +147,11 @@ function FuelPrices:InitPumpUI( pump )
 
             draw.SimpleText(text, "AIRBOAT_VENDOR_FONT", 0, 0, Color( 255, 255, 255 ), TEXT_ALIGN_CENTER, TEXT_ALIGN_TOP)
             cam.End3D2D()
+
+            oldDrawTranslucent( pump )
         end
 
-        pump.wrappedRenderTranslucent = true
+        pump.wrappedDrawTranslucent = true
     end
 
 
