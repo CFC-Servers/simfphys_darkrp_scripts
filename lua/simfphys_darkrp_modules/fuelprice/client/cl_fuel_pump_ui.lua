@@ -141,31 +141,21 @@ function FuelPrices:InitPumpUI( pump )
             local taxText = math.Round( taxPercent, 2 ) .. "%"
 
             local text = pricePerUnit .. " / " .. pump:GetFuelUnits()
-            local size = 50
+            local size = 60
 
-            cam.Start3D2D(pos, ang, 1)
+            cam.Start3D2D(pos, ang, 0.7)
 
                 draw.RoundedBox( 5, -size / 2, -size / 2, size, size, Color( 52, 152, 219 ) )
 
                 surface.SetFont( "AIRBOAT_VENDOR_FONT" )
-                local tw, th = surface.GetTextSize( text )
-                draw.Text( {
-                    text = text,
-                    pos = { -tw / 2, ( -size * 0.1 ) - ( th / 2 ) },
-                    color = Color( 24, 126, 55 )
-                } )
+                draw.SimpleText( text, "AIRBOAT_VENDOR_FONT", 0, -size * 0.1, Color( 24, 126, 55 ), TEXT_ALIGN_CENTER, TEXT_ALIGN_CENTER )
 
-                local faceSize = size * 0.1
+                local faceSize = size * 0.2
                 surface.SetDrawColor( Color( 255, 255, 255 ) )
                 surface.SetMaterial( breensFace )
                 surface.DrawTexturedRect( -size * 0.25, size * 0.1 - faceSize / 2, faceSize, faceSize )
 
-                local tw, th = surface.GetTextSize( taxText )
-                draw.Text( {
-                    text = taxText,
-                    pos = { -tw / 2, ( size * 0.1 ) - ( th / 2 )  },
-                    color = Color( 255, 127, 39 )
-                } )
+                draw.SimpleText( taxText, "AIRBOAT_VENDOR_FONT", 0, size * 0.1, Color( 255, 127, 39 ), TEXT_ALIGN_CENTER, TEXT_ALIGN_CENTER )
 
             -- surface.SetFont("AIRBOAT_VENDOR_FONT")
             -- local wi, he = surface.GetTextSize(text)
