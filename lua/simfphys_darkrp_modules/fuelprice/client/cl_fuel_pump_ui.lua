@@ -116,6 +116,7 @@ function FuelPrices:InitPumpUI( pump )
 
     if not pump.wrappedDrawTranslucent then
         local oldDrawTranslucent = pump.DrawTranslucent
+        pump.RenderGroup = RENDERGROUP_TRANSLUCENT
 
         surface.CreateFont("AIRBOAT_VENDOR_FONT", {font = "Circular Std Bold", size = 200})
         local offset = Vector( 0, 0, 80 )
