@@ -151,7 +151,6 @@ function FuelPrices:InitPumpUI( pump )
             local taxText = math.Round( taxPercent, 2 ) .. "%"
 
             local text = pricePerUnit .. " / " .. pump:GetFuelUnits()
-            local size = 1200
             local w = 1200
             local h = 800
 
