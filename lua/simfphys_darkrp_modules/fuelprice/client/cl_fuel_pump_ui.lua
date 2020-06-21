@@ -143,7 +143,7 @@ function FuelPrices:InitPumpUI( pump )
             local text = pricePerUnit .. " / " .. pump:GetFuelUnits()
             local size = 50
 
-            cam.Start3D2D(pos, ang, 0.04)
+            cam.Start3D2D(pos, ang, 1)
 
                 draw.RoundedBox( 5, -size / 2, -size / 2, size, size, Color( 52, 152, 219 ) )
 
