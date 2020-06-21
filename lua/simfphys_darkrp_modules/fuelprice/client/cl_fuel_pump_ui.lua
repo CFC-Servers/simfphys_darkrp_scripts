@@ -121,7 +121,7 @@ function FuelPrices:InitPumpUI( pump )
         surface.CreateFont("AIRBOAT_VENDOR_FONT", {font = "Circular Std Bold", size = 200})
         local offset = Vector( 0, 0, 80 )
 
-        local breensFace = Material( "models/debug/debugwhite" )
+        local breensFace = Material( "cfc/fueltax/breensface.png" )
 
         function pump:DrawTranslucent()
             local origin = pump:GetPos()
@@ -143,7 +143,7 @@ function FuelPrices:InitPumpUI( pump )
             local text = pricePerUnit .. " / " .. pump:GetFuelUnits()
             local size = 1200
 
-            cam.Start3D2D(pos, ang, 0.04)
+            cam.Start3D2D(pos, ang, 0.035)
 
                 draw.RoundedBox( 50, -size / 2, -size / 2, size, size, Color( 52, 152, 219 ) )
 
@@ -153,7 +153,7 @@ function FuelPrices:InitPumpUI( pump )
                 local faceSize = size * 0.2
                 surface.SetDrawColor( Color( 255, 255, 255 ) )
                 surface.SetMaterial( breensFace )
-                surface.DrawTexturedRect( -faceSize - size * 0.15, size * 0.1 - faceSize / 2, faceSize, faceSize )
+                surface.DrawTexturedRect( - faceSize - size * 0.15, -faceSize / 2 + size * 0.2, faceSize, faceSize )
 
                 draw.SimpleText( taxText, "AIRBOAT_VENDOR_FONT", 0, size * 0.2, Color( 255, 127, 39 ), TEXT_ALIGN_CENTER, TEXT_ALIGN_CENTER )
 
