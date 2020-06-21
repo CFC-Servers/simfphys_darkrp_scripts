@@ -119,7 +119,7 @@ function FuelPrices:InitPumpUI( pump )
         pump.RenderGroup = RENDERGROUP_TRANSLUCENT
 
         surface.CreateFont("AIRBOAT_VENDOR_FONT", {font = "Circular Std Bold", size = 200})
-        local offset = Vector( 0, 0, 100 )
+        local offset = Vector( 0, 0, 80 )
 
         local breensFace = Material( "cfc/fueltax/breensface.png" )
 
@@ -151,15 +151,15 @@ function FuelPrices:InitPumpUI( pump )
 
                 surface.SetFont( "AIRBOAT_VENDOR_FONT" )
                 draw.SimpleTextOutlined( text, "AIRBOAT_VENDOR_FONT", 0, -h * 0.35, Color( 36, 224, 127 ),
-                    TEXT_ALIGN_CENTER, TEXT_ALIGN_CENTER, 2, Color( 255, 255, 255 ) )
+                    TEXT_ALIGN_CENTER, TEXT_ALIGN_CENTER, 2, Color( 0, 0, 0 ) )
 
                 local faceSize = w * 0.35
                 surface.SetDrawColor( Color( 255, 255, 255 ) )
                 surface.SetMaterial( breensFace )
-                surface.DrawTexturedRect( -faceSize / 2 - w * 0.3, -faceSize / 2 + h * 0.35, faceSize, faceSize )
+                surface.DrawTexturedRect( -faceSize / 2 - w * 0.25, -faceSize / 2 + h * 0.25, faceSize, faceSize )
 
-                draw.SimpleTextOutlined( taxText, "AIRBOAT_VENDOR_FONT", w * 0.3, h * 0.35, Color( 224, 127, 36 ),
-                    TEXT_ALIGN_CENTER, TEXT_ALIGN_CENTER, 2, Color( 255, 255, 255 ) )
+                draw.SimpleTextOutlined( taxText, "AIRBOAT_VENDOR_FONT", w * 0.3, h * 0.25, Color( 224, 127, 36 ),
+                    TEXT_ALIGN_CENTER, TEXT_ALIGN_CENTER, 2, Color( 0, 0, 0 ) )
 
             -- surface.SetFont("AIRBOAT_VENDOR_FONT")
             -- local wi, he = surface.GetTextSize(text)
