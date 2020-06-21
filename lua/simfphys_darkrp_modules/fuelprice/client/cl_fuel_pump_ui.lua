@@ -129,7 +129,7 @@ function FuelPrices:InitPumpUI( pump )
         function pump:DrawTranslucent()
             local origin = pump:GetPos()
             local dist = LocalPlayer():GetPos():Distance(origin)
-            local fadeOutProg = math.Clamp( math.abs( dist - panelRange ) / fadeRange, 0, 1 )
+            local fadeOutProg = math.Clamp( ( dist - panelRange ) / fadeRange, 0, 1 )
 
             if fadeOutProg == 1 then
                 return oldDrawTranslucent( pump )
@@ -161,7 +161,7 @@ function FuelPrices:InitPumpUI( pump )
 
                 surface.SetFont( "AIRBOAT_VENDOR_FONT" )
                 draw.SimpleTextOutlined( text, "AIRBOAT_VENDOR_FONT", 0, -h * 0.35, Color( 36, 224, 127, opacity ),
-                    TEXT_ALIGN_CENTER, TEXT_ALIGN_CENTER, 2, Color( 0, 0, 0 ) )
+                    TEXT_ALIGN_CENTER, TEXT_ALIGN_CENTER, 2, Color( 0, 0, 0, opacity ) )
 
                 local faceSize = w * 0.35
                 surface.SetDrawColor( Color( 255, 255, 255, opacity ) )
@@ -169,7 +169,7 @@ function FuelPrices:InitPumpUI( pump )
                 surface.DrawTexturedRect( -faceSize / 2 - w * 0.25, -faceSize / 2 + h * 0.18, faceSize, faceSize )
 
                 draw.SimpleTextOutlined( taxText, "AIRBOAT_VENDOR_FONT", w * 0.25, h * 0.18, Color( 224, 127, 36, opacity ),
-                    TEXT_ALIGN_CENTER, TEXT_ALIGN_CENTER, 2, Color( 0, 0, 0 ) )
+                    TEXT_ALIGN_CENTER, TEXT_ALIGN_CENTER, 2, Color( 0, 0, 0, opacity ) )
 
             cam.End3D2D()
 
