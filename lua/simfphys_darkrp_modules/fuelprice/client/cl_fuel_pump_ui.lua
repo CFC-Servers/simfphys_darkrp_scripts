@@ -121,6 +121,8 @@ function FuelPrices:InitPumpUI( pump )
         surface.CreateFont("AIRBOAT_VENDOR_FONT", {font = "Circular Std Bold", size = 200})
         local offset = Vector( 0, 0, 80 )
 
+        local breensFace = Material( "models/debug/debugwhite" )
+
         function pump:DrawTranslucent()
             local origin = pump:GetPos()
             if (LocalPlayer():GetPos():Distance(origin) >= 768) then return end
@@ -135,18 +137,45 @@ function FuelPrices:InitPumpUI( pump )
             local pricePerUnit = pump:GetFuelPricePerUnit()
             pricePerUnit = DarkRP.formatMoney( math.Round( pricePerUnit, 2 ) )
 
+            local taxPercent = pump:GetNWFloat( "FuelTax" )
+            local taxText = math.Round( taxPercent, 2 ) .. "%"
+
             local text = pricePerUnit .. " / " .. pump:GetFuelUnits()
+            local size = 50
 
             cam.Start3D2D(pos, ang, 0.04)
-            surface.SetFont("AIRBOAT_VENDOR_FONT")
-            local wi, he = surface.GetTextSize(text)
-            local pad = 16
-            wi = wi + pad * 2
-            he = he + pad * 2
 
-            draw.RoundedBox(8, -wi * 0.5, -pad, wi, he, Color( 52, 152, 219, 255) )
+                draw.RoundedBox( 5, -size / 2, -size / 2, size, size, Color( 52, 152, 219 ) )
 
-            draw.SimpleText(text, "AIRBOAT_VENDOR_FONT", 0, 0, Color( 255, 255, 255 ), TEXT_ALIGN_CENTER, TEXT_ALIGN_TOP)
+                surface.SetFont( "AIRBOAT_VENDOR_FONT" )
+                local tw, th = surface.GetTextSize( text )
+                draw.Text( {
+                    text = text,
+                    pos = { -tw / 2, ( -size * 0.1 ) - ( th / 2 ) },
+                    color = Color( 24, 126, 55 )
+                } )
+
+                local faceSize = size * 0.1
+                surface.SetDrawColor( Color( 255, 255, 255 ) )
+                surface.SetMaterial( breensFace )
+                surface.DrawTexturedRect( -size * 0.25, size * 0.1 - faceSize / 2, faceSize, faceSize )
+
+                local tw, th = surface.GetTextSize( taxText )
+                draw.Text( {
+                    text = taxText,
+                    pos = { -tw / 2, ( size * 0.1 ) - ( th / 2 )  },
+                    color = Color( 255, 127, 39 )
+                } )
+
+            -- surface.SetFont("AIRBOAT_VENDOR_FONT")
+            -- local wi, he = surface.GetTextSize(text)
+            -- local pad = 16
+            -- wi = wi + pad * 2
+            -- he = he + pad * 2
+
+            -- draw.RoundedBox(8, -wi * 0.5, -pad, wi, he, Color( 52, 152, 219, 255) )
+
+            -- draw.SimpleText(text, "AIRBOAT_VENDOR_FONT", 0, 0, Color( 255, 255, 255 ), TEXT_ALIGN_CENTER, TEXT_ALIGN_TOP)
             cam.End3D2D()
 
             oldDrawTranslucent( pump )
