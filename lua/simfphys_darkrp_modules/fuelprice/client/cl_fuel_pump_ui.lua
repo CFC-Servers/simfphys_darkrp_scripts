@@ -166,7 +166,7 @@ function FuelPrices:InitPumpUI( pump )
                 draw.RoundedBox( 50, -w / 2 - 5, -h / 2 - 5, w + 10, h + 10, Color( 0, 0, 0, opacity ) )
                 draw.RoundedBox( 50, -w / 2, -h / 2, w, h, Color( 52, 152, 219, opacity ) )
 
-                surface.SetDrawColor( 0, 0, 0, 255 )
+                surface.SetDrawColor( 0, 0, 0, opacity )
                 draw.NoTexture()
                 surface.DrawPoly( triangle )
 
