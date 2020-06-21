@@ -119,7 +119,7 @@ function FuelPrices:InitPumpUI( pump )
         pump.RenderGroup = RENDERGROUP_TRANSLUCENT
 
         surface.CreateFont("AIRBOAT_VENDOR_FONT", {font = "Circular Std Bold", size = 200})
-        local offset = Vector( 0, 0, 80 )
+        local offset = Vector( 0, 0, 100 )
 
         local breensFace = Material( "cfc/fueltax/breensface.png" )
 
