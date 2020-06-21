@@ -156,9 +156,9 @@ function FuelPrices:InitPumpUI( pump )
                 local faceSize = w * 0.35
                 surface.SetDrawColor( Color( 255, 255, 255 ) )
                 surface.SetMaterial( breensFace )
-                surface.DrawTexturedRect( -faceSize / 2 - w * 0.25, -faceSize / 2 + h * 0.25, faceSize, faceSize )
+                surface.DrawTexturedRect( -faceSize / 2 - w * 0.25, -faceSize / 2 + h * 0.18, faceSize, faceSize )
 
-                draw.SimpleTextOutlined( taxText, "AIRBOAT_VENDOR_FONT", w * 0.3, h * 0.25, Color( 224, 127, 36 ),
+                draw.SimpleTextOutlined( taxText, "AIRBOAT_VENDOR_FONT", w * 0.25, h * 0.18, Color( 224, 127, 36 ),
                     TEXT_ALIGN_CENTER, TEXT_ALIGN_CENTER, 2, Color( 0, 0, 0 ) )
 
             -- surface.SetFont("AIRBOAT_VENDOR_FONT")
