@@ -118,6 +118,9 @@ function FuelPrices:InitPumpUI( pump )
         local oldDrawTranslucent = pump.DrawTranslucent
         pump.RenderGroup = RENDERGROUP_TRANSLUCENT
 
+        local panelRange = 300 -- Range where panel is full opacity
+        local fadeRange = 50 -- Range to fade over
+
         surface.CreateFont("AIRBOAT_VENDOR_FONT", {font = "Circular Std Bold", size = 200})
         local offset = Vector( 0, 0, 80 )
 
@@ -125,7 +128,14 @@ function FuelPrices:InitPumpUI( pump )
 
         function pump:DrawTranslucent()
             local origin = pump:GetPos()
-            if (LocalPlayer():GetPos():Distance(origin) >= 768) then return end
+            local dist = LocalPlayer():GetPos():Distance(origin)
+            local fadeOutProg = math.Clamp( math.abs( dist - panelRange ) / fadeRange, 0, 1 )
+
+            if fadeOutProg == 1 then
+                return oldDrawTranslucent( pump )
+            end
+
+            local opacity = ( 1 - fadeOutProg ) * 255
 
             local pos = origin + offset
             local ang = (LocalPlayer():EyePos() - pos):Angle()
@@ -147,10 +157,10 @@ function FuelPrices:InitPumpUI( pump )
 
             cam.Start3D2D(pos, ang, 0.035)
 
-                draw.RoundedBox( 50, -w / 2, -h / 2, w, h, Color( 52, 152, 219 ) )
+                draw.RoundedBox( 50, -w / 2, -h / 2, w, h, Color( 52, 152, 219, opacity ) )
 
                 surface.SetFont( "AIRBOAT_VENDOR_FONT" )
-                draw.SimpleTextOutlined( text, "AIRBOAT_VENDOR_FONT", 0, -h * 0.35, Color( 36, 224, 127 ),
+                draw.SimpleTextOutlined( text, "AIRBOAT_VENDOR_FONT", 0, -h * 0.35, Color( 36, 224, 127, opacity ),
                     TEXT_ALIGN_CENTER, TEXT_ALIGN_CENTER, 2, Color( 0, 0, 0 ) )
 
                 local faceSize = w * 0.35
@@ -158,18 +168,9 @@ function FuelPrices:InitPumpUI( pump )
                 surface.SetMaterial( breensFace )
                 surface.DrawTexturedRect( -faceSize / 2 - w * 0.25, -faceSize / 2 + h * 0.18, faceSize, faceSize )
 
-                draw.SimpleTextOutlined( taxText, "AIRBOAT_VENDOR_FONT", w * 0.25, h * 0.18, Color( 224, 127, 36 ),
+                draw.SimpleTextOutlined( taxText, "AIRBOAT_VENDOR_FONT", w * 0.25, h * 0.18, Color( 224, 127, 36, opacity ),
                     TEXT_ALIGN_CENTER, TEXT_ALIGN_CENTER, 2, Color( 0, 0, 0 ) )
 
-            -- surface.SetFont("AIRBOAT_VENDOR_FONT")
-            -- local wi, he = surface.GetTextSize(text)
-            -- local pad = 16
-            -- wi = wi + pad * 2
-            -- he = he + pad * 2
-
-            -- draw.RoundedBox(8, -wi * 0.5, -pad, wi, he, Color( 52, 152, 219, 255) )
-
-            -- draw.SimpleText(text, "AIRBOAT_VENDOR_FONT", 0, 0, Color( 255, 255, 255 ), TEXT_ALIGN_CENTER, TEXT_ALIGN_TOP)
             cam.End3D2D()
 
             oldDrawTranslucent( pump )
