@@ -164,7 +164,7 @@ function FuelPrices:InitPumpUI( pump )
                     TEXT_ALIGN_CENTER, TEXT_ALIGN_CENTER, 2, Color( 0, 0, 0 ) )
 
                 local faceSize = w * 0.35
-                surface.SetDrawColor( Color( 255, 255, 255 ) )
+                surface.SetDrawColor( Color( 255, 255, 255, opacity ) )
                 surface.SetMaterial( breensFace )
                 surface.DrawTexturedRect( -faceSize / 2 - w * 0.25, -faceSize / 2 + h * 0.18, faceSize, faceSize )
 
