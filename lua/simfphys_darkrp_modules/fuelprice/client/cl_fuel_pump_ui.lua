@@ -122,7 +122,7 @@ function FuelPrices:InitPumpUI( pump )
         local fadeRange = 300 -- Range to fade over
 
         surface.CreateFont("AIRBOAT_VENDOR_FONT", {font = "Circular Std Bold", size = 200})
-        local offset = Vector( 0, 0, 80 )
+        local offset = Vector( 0, 0, 90 )
 
         local breensFace = Material( "cfc/fueltax/breensface.png" )
 
@@ -130,9 +130,9 @@ function FuelPrices:InitPumpUI( pump )
         local h = 800
 
         local triangle = {
-            { x = -w * 0.05, y = h * 0.5 },
-            { x = w * 0.05, y = h * 0.5 },
-            { x = 0, y = h * 0.55 },
+            { x = -w * 0.1, y = h * 0.5 },
+            { x = w * 0.1, y = h * 0.5 },
+            { x = 0, y = h * 0.6 },
         }
 
         function pump:DrawTranslucent()
