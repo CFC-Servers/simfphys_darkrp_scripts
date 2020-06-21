@@ -118,8 +118,8 @@ function FuelPrices:InitPumpUI( pump )
         local oldDrawTranslucent = pump.DrawTranslucent
         pump.RenderGroup = RENDERGROUP_TRANSLUCENT
 
-        local panelRange = 300 -- Range where panel is full opacity
-        local fadeRange = 50 -- Range to fade over
+        local panelRange = 150 -- Range where panel is full opacity
+        local fadeRange = 300 -- Range to fade over
 
         surface.CreateFont("AIRBOAT_VENDOR_FONT", {font = "Circular Std Bold", size = 200})
         local offset = Vector( 0, 0, 80 )
