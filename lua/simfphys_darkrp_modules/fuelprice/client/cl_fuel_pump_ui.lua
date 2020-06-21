@@ -126,6 +126,15 @@ function FuelPrices:InitPumpUI( pump )
 
         local breensFace = Material( "cfc/fueltax/breensface.png" )
 
+        local w = 1200
+        local h = 800
+
+        local triangle = {
+            { x = -w * 0.05, y = h * 0.5 },
+            { x = w * 0.05, y = h * 0.5 },
+            { x = 0, y = h * 0.55 },
+        }
+
         function pump:DrawTranslucent()
             local origin = pump:GetPos()
             local dist = LocalPlayer():GetPos():Distance(origin)
@@ -148,15 +157,18 @@ function FuelPrices:InitPumpUI( pump )
             pricePerUnit = DarkRP.formatMoney( math.Round( pricePerUnit, 2 ) )
 
             local taxPercent = pump:GetNWFloat( "FuelTax" )
-            local taxText = math.Round( taxPercent * 100, 2 ) .. "%"
+            local taxText = "+" .. math.Round( taxPercent * 100, 2 ) .. "%"
 
             local text = pricePerUnit .. " / " .. pump:GetFuelUnits()
-            local w = 1200
-            local h = 800
 
             cam.Start3D2D(pos, ang, 0.035)
 
+                draw.RoundedBox( 50, -w / 2 - 5, -h / 2 - 5, w + 10, h + 10, Color( 0, 0, 0, opacity ) )
                 draw.RoundedBox( 50, -w / 2, -h / 2, w, h, Color( 52, 152, 219, opacity ) )
+
+                surface.SetDrawColor( 0, 0, 0, 255 )
+                draw.NoTexture()
+                surface.DrawPoly( triangle )
 
                 surface.SetFont( "AIRBOAT_VENDOR_FONT" )
                 draw.SimpleTextOutlined( text, "AIRBOAT_VENDOR_FONT", 0, -h * 0.35, Color( 36, 224, 127, opacity ),
