@@ -16,7 +16,7 @@ FuelPrices.pumpFuelTypes = {
 
 FuelPrices.pumpFuelUnits = {
     gmod_sent_vehicle_fphysics_gaspump_diesel = "gallon",
-    gmod_sent_vehicle_fphysics_gaspump_electric = "kW/h",
+    gmod_sent_vehicle_fphysics_gaspump_electric = "kWh",
     gmod_sent_vehicle_fphysics_gaspump = "gallon"
 }
 
@@ -52,7 +52,7 @@ function FuelPrices:AddPumpExtensions( pump )
 
         local units = 0
         if pump:GetFuelType() == "electric" then
-            -- Idk, this is how SimfPhys calculates kW/h
+            -- Idk, this is how SimfPhys calculates kWh
             units = usedFuel / 2
         else
             -- To gallons

@@ -48,6 +48,10 @@ function FuelPrices:InitPumpUI( pump )
                     newText = "LITERS"
                 end
 
+                if text == "kW/h" then
+                    newText = "kWh"
+                end
+
                 oldSimpleText( newText, ... )
             end
 
