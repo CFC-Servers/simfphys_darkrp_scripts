@@ -142,20 +142,24 @@ function FuelPrices:InitPumpUI( pump )
 
             local text = pricePerUnit .. " / " .. pump:GetFuelUnits()
             local size = 1200
+            local w = 1200
+            local h = 800
 
             cam.Start3D2D(pos, ang, 0.035)
 
-                draw.RoundedBox( 50, -size / 2, -size / 2, size, size, Color( 52, 152, 219 ) )
+                draw.RoundedBox( 50, -w / 2, -h / 2, w, h, Color( 52, 152, 219 ) )
 
                 surface.SetFont( "AIRBOAT_VENDOR_FONT" )
-                draw.SimpleText( text, "AIRBOAT_VENDOR_FONT", 0, -size * 0.2, Color( 24, 126, 55 ), TEXT_ALIGN_CENTER, TEXT_ALIGN_CENTER )
+                draw.SimpleTextOutlined( text, "AIRBOAT_VENDOR_FONT", 0, -h * 0.35, Color( 36, 224, 127 ),
+                    TEXT_ALIGN_CENTER, TEXT_ALIGN_CENTER, 2, Color( 255, 255, 255 ) )
 
-                local faceSize = size * 0.2
+                local faceSize = w * 0.35
                 surface.SetDrawColor( Color( 255, 255, 255 ) )
                 surface.SetMaterial( breensFace )
-                surface.DrawTexturedRect( - faceSize - size * 0.15, -faceSize / 2 + size * 0.2, faceSize, faceSize )
+                surface.DrawTexturedRect( -faceSize / 2 - w * 0.3, -faceSize / 2 + h * 0.35, faceSize, faceSize )
 
-                draw.SimpleText( taxText, "AIRBOAT_VENDOR_FONT", 0, size * 0.2, Color( 255, 127, 39 ), TEXT_ALIGN_CENTER, TEXT_ALIGN_CENTER )
+                draw.SimpleTextOutlined( taxText, "AIRBOAT_VENDOR_FONT", w * 0.3, h * 0.35, Color( 224, 127, 36 ),
+                    TEXT_ALIGN_CENTER, TEXT_ALIGN_CENTER, 2, Color( 255, 255, 255 ) )
 
             -- surface.SetFont("AIRBOAT_VENDOR_FONT")
             -- local wi, he = surface.GetTextSize(text)
