@@ -148,7 +148,7 @@ function FuelPrices:InitPumpUI( pump )
             pricePerUnit = DarkRP.formatMoney( math.Round( pricePerUnit, 2 ) )
 
             local taxPercent = pump:GetNWFloat( "FuelTax" )
-            local taxText = math.Round( taxPercent, 2 ) .. "%"
+            local taxText = math.Round( taxPercent * 100, 2 ) .. "%"
 
             local text = pricePerUnit .. " / " .. pump:GetFuelUnits()
             local w = 1200
