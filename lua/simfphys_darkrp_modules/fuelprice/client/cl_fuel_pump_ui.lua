@@ -146,7 +146,11 @@ function FuelPrices:InitPumpUI( pump )
             local fadeOutProg = math.Clamp( ( dist - panelRange ) / fadeRange, 0, 1 )
 
             if fadeOutProg == 1 then
-                return pump.oldDrawTranslucent( pump )
+                if pump.oldDrawTranslucent then
+                    pump.oldDrawTranslucent( pump )
+                end
+
+                return
             end
 
             local opacity = ( 1 - fadeOutProg ) * 255
@@ -189,7 +193,9 @@ function FuelPrices:InitPumpUI( pump )
 
             cam.End3D2D()
 
-            pump.oldDrawTranslucent( pump )
+            if pump.oldDrawTranslucent then
+                pump.oldDrawTranslucent( pump )
+            end
         end
 
         pump.wrappedDrawTranslucent = true
