@@ -120,6 +120,7 @@ function FuelPrices:InitPumpUI( pump )
 
     if not pump.wrappedDrawTranslucent then
         local oldDrawTranslucent = pump.DrawTranslucent
+        pump.oldDrawTranslucent = oldDrawTranslucent
         pump.RenderGroup = RENDERGROUP_TRANSLUCENT
 
         local panelRange = 150 -- Range where panel is full opacity
@@ -145,7 +146,7 @@ function FuelPrices:InitPumpUI( pump )
             local fadeOutProg = math.Clamp( ( dist - panelRange ) / fadeRange, 0, 1 )
 
             if fadeOutProg == 1 then
-                return oldDrawTranslucent( pump )
+                return pump.oldDrawTranslucent( pump )
             end
 
             local opacity = ( 1 - fadeOutProg ) * 255
@@ -188,7 +189,7 @@ function FuelPrices:InitPumpUI( pump )
 
             cam.End3D2D()
 
-            oldDrawTranslucent( pump )
+            pump.oldDrawTranslucent( pump )
         end
 
         pump.wrappedDrawTranslucent = true
