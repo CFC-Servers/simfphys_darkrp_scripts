@@ -10,7 +10,7 @@ hook.Add( "OnSaveSimfPhysFuelPrice", "SimfPhysSaveTaxRates", function( saveData 
 end )
 
 hook.Add( "OnLoadSimfPhysFuelPrice", "SimfPhysLoadTaxRates", function( data )
-    FuelPrices.taxRates = data.taxRates
+    FuelPrices.taxRates = data.taxRates or {}
 end )
 
 hook.Add( "OnUpdateFuelPumpPrices", "SetTaxRatesOnPump", function( pump )
