@@ -20,15 +20,7 @@ hook.Add( "OnUpdateFuelPumpPrices", "SetTaxRatesOnPump", function( pump )
     pump:SetNWFloat( "FuelTax", taxRates[fuelType] )
 end )
 
-hook.Add( "SimfPhysCalculateFuelPrice", "ModifyPriceWithTaxes", function( pump, priceStruct )
-    local tax = pump:GetNWFloat( "FuelTax", 0 )
-    local newPrice = priceStruct.price + ( priceStruct.price * tax )
-
-    FuelPrices:Log( "Modified price: [" .. priceStruct.price .. "] with tax rate [" .. tax .. "%], resulted in [" .. newPrice .. "]" )
-    priceStruct:SetPrice( newPrice )
-end )
-
-function FuelPrices:UpdateTaxRates(newRates)
+function FuelPrices:UpdateTaxRates( newRates )
     FuelPrices.taxRates.gas = newRates.gas or FuelPrices.taxRates.gas
     FuelPrices.taxRates.diesel = newRates.diesel or FuelPrices.taxRates.diesel
     FuelPrices.taxRates.electric = newRates.electric or FuelPrices.taxRates.electric
@@ -49,12 +41,13 @@ util.AddNetworkString( "Slawer.SyncFuelTaxes" )
 hook.Add( "Slawer.WillSyncTaxes", "SyncFuelTaxes", function( ply, taxData )
     FuelPrices:Log( "Received Slawer.WillSyncTaxes, preparing to sync fuel taxes" )
     local taxRates = FuelPrices.taxRates
+    PrintTable( taxRates )
 
     net.Start( "Slawer.SyncFuelTaxes" )
 
     net.WriteTable( taxRates )
 
-    if ply then
+    if ply and IsValid( ply ) then
         net.Send( ply )
     else
         net.Broadcast()
