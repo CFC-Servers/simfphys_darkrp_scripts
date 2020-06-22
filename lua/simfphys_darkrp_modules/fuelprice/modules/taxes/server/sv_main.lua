@@ -41,13 +41,13 @@ end
 hook.Add( "Slawer.UpdateTaxes", "CheckForUpdatedFuelTaxes", function( ply, taxData )
     if not taxData.fuelTaxes then return end
 
-    self:Log( "Received Slawer.UpdateTaxes hook, forwarding taxData.fuelTaxes to UpdateTaxRates" )
+    FuelPrices:Log( "Received Slawer.UpdateTaxes hook, forwarding taxData.fuelTaxes to UpdateTaxRates" )
     FuelPrices:UpdateTaxRates( taxData.fuelTaxes )
 end )
 
 util.AddNetworkString( "Slawer.SyncFuelTaxes" )
 hook.Add( "Slawer.WillSyncTaxes", "SyncFuelTaxes", function( ply, taxData )
-    self:Log( "Received Slawer.WillSyncTaxes, preparing to sync fuel taxes" )
+    FuelPrices:Log( "Received Slawer.WillSyncTaxes, preparing to sync fuel taxes" )
     local taxRates = FuelPrices.taxRates
 
     net.Start( "Slawer.SyncFuelTaxes" )
