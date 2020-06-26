@@ -48,7 +48,7 @@ hook.Add( "SimfPhys_FuelTaxes_ChargedCustomer", "SendTaxesToSlawer", function( p
     local maxStorableRevenue = maxFunds - currentFunds
     local amountToAdd = math.Clamp( taxRevenue, 0, maxStorableRevenue )
 
-    FuelPrices:Log( "Adding " .. DarkRp.formatMoney( amountToAdd ) .. " in tax revenue from a fuel purchase of " .. DarkRp.formatMoney( price ) .. " (tax rate of " .. taxAmount .. "%)" )
+    FuelPrices:Log( "Adding " .. DarkRP.formatMoney( amountToAdd ) .. " in tax revenue from a fuel purchase of " .. DarkRP.formatMoney( price ) .. " (tax rate of " .. taxAmount .. "%)" )
     Slawer.Mayor:AddFunds( amountToAdd )
 end )
 
