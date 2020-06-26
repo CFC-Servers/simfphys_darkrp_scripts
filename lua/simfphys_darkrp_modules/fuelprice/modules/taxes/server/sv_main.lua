@@ -37,6 +37,22 @@ hook.Add( "Slawer.UpdateTaxes", "CheckForUpdatedFuelTaxes", function( ply, taxDa
     FuelPrices:UpdateTaxRates( taxData.fuelTaxes )
 end )
 
+hook.Add( "SimfPhys_FuelTaxes_ChargedCustomer", "SendTaxesToSlawer", function( pump, customer, priceStruct )
+    local taxAmount = pump:GetNWFloat( "FuelTax" )
+    local price = priceStruct.price or 0
+    local taxRevenue = price / ( 1 + taxAmount )
+
+    if taxRevenue == 0 then return end
+
+    local currentFunds = Slawer.Mayor:GetFunds()
+    local maxFunds = Slawer.Mayor:GetMaxFunds()
+    local maxStorableRevenue = maxFunds - currentFunds
+    local amountToAdd = math.Clamp( taxRevenue, 0, maxStorableRevenue )
+
+    FuelPrices:Log( "Adding " .. DarkRp.formatMoney( amountToAdd ) .. " in tax revenue from a fuel purchase of " .. DarkRp.formatMoney( price ) .. " (tax rate of " .. taxAmount .. "%)" )
+    Slawer.Mayor:AddFunds( amountToAdd )
+end )
+
 util.AddNetworkString( "Slawer.SyncFuelTaxes" )
 hook.Add( "Slawer.WillSyncTaxes", "SyncFuelTaxes", function( ply, taxData )
     FuelPrices:Log( "Received Slawer.WillSyncTaxes, preparing to sync fuel taxes" )
