@@ -37,9 +37,8 @@ hook.Add( "Slawer.UpdateTaxes", "CheckForUpdatedFuelTaxes", function( ply, taxDa
     FuelPrices:UpdateTaxRates( taxData.fuelTaxes )
 end )
 
-hook.Add( "SimfPhys_FuelTaxes_ChargedCustomer", "SendTaxesToSlawer", function( pump, customer, priceStruct )
+hook.Add( "SimfPhys_FuelTaxes_ChargedCustomer", "SendTaxesToSlawer", function( pump, customer, price )
     local taxAmount = pump:GetNWFloat( "FuelTax" )
-    local price = priceStruct.price or 0
     local taxRevenue = price - ( price / ( 1 + taxAmount ) )
 
     if taxRevenue == 0 then return end
