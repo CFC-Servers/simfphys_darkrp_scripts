@@ -97,7 +97,7 @@ function FuelPrices:AddPumpExtensions( pump )
 
             -- Ensures we don't charge them more than they have
             local customerMoney = customer:getDarkRPVar( "money" )
-            price = math.Clamp( finalPrice, 0, customerMoney )
+            price = math.Clamp( price, 0, customerMoney )
 
             local priceStruct = {
                 price = price
