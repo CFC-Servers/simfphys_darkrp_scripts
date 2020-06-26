@@ -119,7 +119,7 @@ function FuelPrices:AddPumpExtensions( pump )
 
             customer:addMoney( -finalPrice )
 
-            hook.Run( "SimfPhys_FuelTaxes_ChargedCustomer", customer, finalPrice )
+            hook.Run( "SimfPhys_FuelTaxes_ChargedCustomer", pump, customer, finalPrice )
         end
 
         if not pump.hookedActiveChange then
