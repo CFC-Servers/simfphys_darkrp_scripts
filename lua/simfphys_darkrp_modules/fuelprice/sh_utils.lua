@@ -91,13 +91,26 @@ function FuelPrices:AddPumpExtensions( pump )
     if SERVER then
         function pump:ChargeCustomer()
             local customer = pump.lastUser
-            local finalPrice = pump:CalculateFuelPrice()
+            local price = pump:CalculateFuelPrice()
 
-            if finalPrice == 0 then return end
+            if price == 0 then return end
 
             -- Ensures we don't charge them more than they have
             local customerMoney = customer:getDarkRPVar( "money" )
-            finalPrice = math.Clamp( finalPrice, 0, customerMoney )
+            price = math.Clamp( finalPrice, 0, customerMoney )
+
+            local priceStruct = {
+                price = price
+            }
+
+            function priceStruct:SetPrice( newPrice )
+                priceStruct.price = newPrice
+            end
+
+            local hookResult = hook.Run( "SimfPhys_FuelTaxes_WillChargeCustomer", pump, customer, priceStruct )
+            if hookResult == false then return end
+
+            local finalPrice = priceStruct.price
 
             local formattedPrice = DarkRP.formatMoney( math.Round( finalPrice, 2 ) )
 
@@ -105,6 +118,8 @@ function FuelPrices:AddPumpExtensions( pump )
             DarkRP.notify( customer, 0, 5, message)
 
             customer:addMoney( -finalPrice )
+
+            hook.Run( "SimfPhys_FuelTaxes_ChargedCustomer", customer, finalPrice )
         end
 
         if not pump.hookedActiveChange then
