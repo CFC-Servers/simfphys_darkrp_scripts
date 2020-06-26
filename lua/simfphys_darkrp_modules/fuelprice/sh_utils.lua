@@ -107,7 +107,7 @@ function FuelPrices:AddPumpExtensions( pump )
                 priceStruct.price = newPrice
             end
 
-            local hookResult = hook.Run( "SimfPhys_FuelTaxes_WillChargeCustomer", pump, customer, priceStruct )
+            local hookResult = hook.Run( "SimfPhys_FuelTaxes_ShouldChargeCustomer", pump, customer, priceStruct )
             if hookResult == false then return end
 
             local finalPrice = priceStruct.price
