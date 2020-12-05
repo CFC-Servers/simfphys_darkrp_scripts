@@ -5,7 +5,7 @@ function Scripts:RepairCost_Init()
 
     simrepaircost_PrimaryAttack = simrepaircost_PrimaryAttack or swep.PrimaryAttack
     local primaryAttack = simrepaircost_PrimaryAttack
-    local repairCost = 50
+    local repairCost = 10
 
 
     swep.PrimaryAttack = function(self, ...)
